@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ledgerly.Application/Ledgerly.Application.csproj" />
+    <Project Path="src/Ledgerly.Domain/Ledgerly.Domain.csproj" />
+    <Project Path="src/Ledgerly.Infrastructure/Ledgerly.Infrastructure.csproj" />
+    <Project Path="src/Ledgerly.WebApi/Ledgerly.WebApi.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ledgerly.Domain.Tests/Ledgerly.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
