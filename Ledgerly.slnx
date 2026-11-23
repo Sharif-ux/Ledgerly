@@ -6,6 +6,7 @@
     <Project Path="src/Ledgerly.WebApi/Ledgerly.WebApi.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Ledgerly.Application.Tests/Ledgerly.Application.Tests.csproj" />
     <Project Path="tests/Ledgerly.Domain.Tests/Ledgerly.Domain.Tests.csproj" />
   </Folder>
 </Solution>
