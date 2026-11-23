@@ -1,5 +1,9 @@
+using Ledgerly.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddInfrastructure(
+    builder.Configuration.GetConnectionString("Default")!);
 // Add services to the container.
 
 builder.Services.AddControllers();
