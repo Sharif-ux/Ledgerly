@@ -3,12 +3,14 @@ using Ledgerly.Application.Accounts.CreateAccount;
 using Ledgerly.Infrastructure;
 using Ledgerly.WebApi.Middleware;
 using Scalar.AspNetCore;
+using Ledgerly.Application.Accounts.ListAccounts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(
     builder.Configuration.GetConnectionString("Default")!);
 builder.Services.AddScoped<CreateAccountHandler>();
+builder.Services.AddScoped<ListAccountsHandler>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(o =>

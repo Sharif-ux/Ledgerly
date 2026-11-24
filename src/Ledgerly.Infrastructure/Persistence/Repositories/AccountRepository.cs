@@ -12,6 +12,9 @@ public class AccountRepository(AppDbContext db) : IAccountRepository
     public Task<Account?> GetByIdAsync(Guid id, CancellationToken ct = default) =>
         db.Accounts.FirstOrDefaultAsync(a => a.Id == id, ct);
 
+    public async Task<IReadOnlyList<Account>> ListAsync(CancellationToken ct = default) =>
+        await db.Accounts.AsNoTracking().OrderBy(a => a.Code).ToListAsync(ct);
+
     public async Task AddAsync(Account account, CancellationToken ct = default) =>
         await db.Accounts.AddAsync(account, ct);
 }
