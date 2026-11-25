@@ -1,16 +1,24 @@
 using System.Text.Json.Serialization;
 using Ledgerly.Application.Accounts.CreateAccount;
+using Ledgerly.Application.Accounts.ListAccounts;
+using Ledgerly.Application.Periods.ChangePeriodStatus;
+using Ledgerly.Application.Periods.CreatePeriod;
+using Ledgerly.Application.Periods.ListPeriods;
 using Ledgerly.Infrastructure;
 using Ledgerly.WebApi.Middleware;
 using Scalar.AspNetCore;
-using Ledgerly.Application.Accounts.ListAccounts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(
     builder.Configuration.GetConnectionString("Default")!);
+
 builder.Services.AddScoped<CreateAccountHandler>();
 builder.Services.AddScoped<ListAccountsHandler>();
+builder.Services.AddScoped<CreatePeriodHandler>();
+builder.Services.AddScoped<ClosePeriodHandler>();
+builder.Services.AddScoped<ReopenPeriodHandler>();
+builder.Services.AddScoped<ListPeriodsHandler>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(o =>
