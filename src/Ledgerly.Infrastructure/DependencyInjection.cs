@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(o => o.UseSqlServer(connectionString));
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<AppDbContext>());
         services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IAccountingPeriodRepository, AccountingPeriodRepository>();
         return services;
     }
 }
