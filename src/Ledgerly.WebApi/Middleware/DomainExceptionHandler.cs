@@ -9,15 +9,22 @@ public class DomainExceptionHandler : IExceptionHandler
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext, Exception exception, CancellationToken ct)
     {
-        if (exception is not DomainException ex)
+        var (status, title) = exception switch
+        {
+            NotFoundException => (StatusCodes.Status404NotFound, "Data tidak ditemukan"),
+            DomainException => (StatusCodes.Status400BadRequest, "Aturan bisnis dilanggar"),
+            _ => (0, string.Empty)
+        };
+
+        if (status == 0)
             return false;
 
-        httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+        httpContext.Response.StatusCode = status;
         await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {
-            Status = StatusCodes.Status400BadRequest,
-            Title = "Aturan bisnis dilanggar",
-            Detail = ex.Message
+            Status = status,
+            Title = title,
+            Detail = exception.Message
         }, ct);
 
         return true;

@@ -8,7 +8,7 @@ public class ReopenPeriodHandler(IAccountingPeriodRepository periods, IUnitOfWor
     public async Task HandleAsync(Guid periodId, CancellationToken ct = default)
     {
         var period = await periods.GetByIdAsync(periodId, ct)
-            ?? throw new DomainException("Periode tidak ditemukan.");
+            ?? throw new NotFoundException("Periode tidak ditemukan.");
 
         period.Reopen();
 
