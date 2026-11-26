@@ -30,13 +30,6 @@ public class ChangePeriodStatusTests
     }
 
     [Fact]
-    public async Task Close_rejects_missing_period()
-    {
-        await Assert.ThrowsAsync<DomainException>(() =>
-            new ClosePeriodHandler(_repo, _uow).HandleAsync(Guid.NewGuid()));
-    }
-
-    [Fact]
     public async Task Close_rejects_already_closed_period_without_saving()
     {
         var period = Seed(2026, 11);
@@ -79,5 +72,18 @@ public class ChangePeriodStatusTests
         var result = await new ListPeriodsHandler(_repo).HandleAsync();
 
         Assert.Equal(["2025-12", "2026-10", "2026-11"], result.Select(p => p.Name));
+    }
+    [Fact]
+    public async Task Close_rejects_missing_period()
+    {
+        await Assert.ThrowsAsync<NotFoundException>(() =>
+            new ClosePeriodHandler(_repo, _uow).HandleAsync(Guid.NewGuid()));
+    }
+
+    [Fact]
+    public async Task Reopen_rejects_missing_period()
+    {
+        await Assert.ThrowsAsync<NotFoundException>(() =>
+            new ReopenPeriodHandler(_repo, _uow).HandleAsync(Guid.NewGuid()));
     }
 }
